@@ -1,0 +1,116 @@
+---
+title: Rails application on AWS cloud using elastic beanstalk
+excerpt: step by step guide to deploy Rails app on AWS
+hero: programming.jpg
+date: 2017-10-08
+author: Arvind Pandey
+---
+
+Below is the step by step guide to deploy rails application on AWS cloud using elastic beanstalk. Deploying any other application stack is also the same. This tutorial requires you to have some pre-requites.
+
+* rails is installed
+* AWS cli is installed
+* eb cli is install
+
+Let’s get started.
+
+### 1. Create a new rails application
+
+```
+$ rails new rails_eb_demo
+$ cd rails_eb_demo
+$ rails s
+```
+
+Browse the page http://localhost:3000/. You should see below message on the browser. You should see below landing text message.
+
+“Yay! You’re on Rails!”
+
+Remember, they might change the landing text message but you should get hint that things are good.
+With that, you can be sure rails is installed properly on your machine.
+
+### 2. Remove the default home page and add yours.
+
+Navigate to application_controller.rb. Add a dummy method called index
+
+```
+def index
+
+end
+```
+
+* Navigate to app/view folder
+* Create another folder called ‘application’
+* Create a file under this folder called ‘index.html.erb’
+* Enter “Hello World!”
+* Go config/routes.rb file
+* Change the root to point to the newly added page.
+* Add below line to routes.rb
+
+```
+root 'application#index'
+```
+* Reload the rails page, you should see ‘Hello World!’ on the browser.
+
+### 3. Our rails app is up and running. Let’s deploy it to AWS cloud using elastic beanstalk.
+
+### 4. Login to aws account using the command
+
+```
+$ aws configure
+```
+It will ask your default AWS region, secret key and access key.You can leave the default region as it is but secret key and access key is must. You can get the secret key and access key from IAM user page.
+
+### 5. Once you are logged in, you can start the eb application creation with below command
+
+```
+eb init
+```
+
+Follow the on-screen instructions. Basically, it will ask you some details. Like, in which region you want to install the application.
+
+Select ‘Create new application’. And Enter the application name ‘EB_Demo’
+
+Select the language stack as Ruby.
+
+SSH part you can skip it for time being.
+
+After this, your application is created. Nothing concrete is done yet. Under Application, you will create the actual environment. One application can have multiple environments
+
+### 6. To create the environment, execute below command
+
+```
+$ eb create rails_eb_demo
+```
+
+The actual syntax is: **$ eb create.** eb accepts lot more other options, but for simplicity, we are not going to enter those.
+
+### 7. It will take 20-30 minutes to create the environment.
+
+On the background, it does a lot of operations. It uploads the code to S3. It creates an EC2 instance. It prepares the EC2 instance for the rails application. It creates load balancers, an autoscaling group, a security group, and blah blah etc. Bottom line is it makes developer’s life easy. It takes care of dirty jobs.
+
+### 8. Before you see the magic, a few more steps are to be performed. Execute below command
+
+```
+$ rake secret
+```
+
+Copy the output and provide input for below command.
+
+```
+$ eb setenv SECRET_KEY_BASE= $ rake secret
+```
+
+### 9. The last step, you have to edit the security group. You have to change the inbound rule so that it can be accessed from anywhere.
+
+### 10. Now go to the elastic beanstalk home page.
+
+Select your application. Go to the environment. URL is given on the top right corner. Open the link. You should see the page with “Hello World!” written on it.
+
+### Disclaimer:
+
+1. I know the tutorial is abstract. It expects you to know a lot of other things.
+2. You can utilize this tutorial most when you know the basic concepts in rails and AWS console.
+
+But I can help you further to connect the dots. If you have any doubt, leave a comment, I will try to answer at least a few.
+

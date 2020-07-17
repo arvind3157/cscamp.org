@@ -1,0 +1,126 @@
+---
+title: Dockerize Java Application
+excerpt: getting started with docker
+hero: docker.jpg
+date: 2020-04-13
+author: Arvind Pandey
+---
+Cover photo by <a href="https://unsplash.com/@frankiefoto" target="_blank">Frank Mckenna</a>  on  <a href="https://unsplash.com/" target="blank">unsplash</a>
+
+### How to dockerize the Java application
+
+<hr />
+
+#### Create Hello World Program in Java
+
+```
+class Hello {
+	public static void main(String[] args) {
+		System.out.println("Hello, it's great to be running inside docker image");
+	}
+}
+```
+
+#### Prepare Dockerfile to build the image. 
+
+Create Dockerfile without any extension and populate with below contents
+
+```yaml
+FROM java:8
+COPY . /var/www/java
+WORKDIR /var/www/java
+RUN javac Hello.java
+CMD ["java", "Hello"]
+```
+
+#### Build the image and run it.
+Run this command to build the image.
+```
+$ docker build -t java-app .
+```
+
+This command will build the image with the name **java-app**
+
+#### Run the image
+
+```
+$ docker run java-app
+```
+
+You should see the console output.
+
+#### Using docker-compose to build the image.
+Create a file with name docker-compose.yaml
+Update its content to this.
+
+```
+version: '2'
+services:
+  java:
+    build: .
+```
+
+The build parameter informs about the location of Dockerfile. Here **.** signifies, it's in the current directory.
+
+#### Build the image
+
+```
+docker-compose build
+```
+
+#### Run the image
+
+```
+docker-compose up
+```
+
+You should see the same console output again.
+
+#### Introducing environment variables in docker-compose.yaml
+
+We can pass or set environment variables in docker-compose file. Update docker-compose.yaml file with one more detail.
+
+```
+version: '2'
+services:
+  java:
+    build: .
+	environment:
+	- ENV_TYPE = "test"
+```
+
+Now update the java code to read this environment variable.
+
+```
+class Hello {
+    public static void main(String[] argss){
+        System.out.println("Hello, it is nice to be running inside docker image");
+        if(System.getenv("ENV_TYPE").equals("prod")){
+            System.out.println("Running on prod like env");
+        } else if (System.getenv("ENV_TYPE").equals("test")){
+            System.out.println("Running on test like env");
+        } else {
+            System.out.println("This is something other than prod or test");
+        }
+    }
+}
+```
+
+Build the image again and then run it.
+
+```
+$ docker-compose build
+$ docker-compose up
+```
+
+The console should print the value set in the compose file.
+
+#### Passing the environment variable from outside
+
+```
+$ docker-compose run -e ENV_TYPE=test java
+$ docker-compose run -e ENV_TYPE=prod java
+$ docker-compose run -e ENV_TYPE=stag java
+```
+
+Now, you should see the console output depending upon the environment variable passed.

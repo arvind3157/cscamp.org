@@ -1,0 +1,114 @@
+---
+title: Queue Fundamentals in Java
+excerpt: first in first out
+hero: queue.jpg
+date: 2020-05-15
+author: Arvind Pandey
+---
+
+Cover photo by <a href="https://unsplash.com/@melanie_sophie" target="_blank">Melanie Pongratz</a>   on  <a href="https://unsplash.com/" target="blank">unsplash</a>
+
+
+### Queue
+
+#### What is Queue?
+
+Queue is one of the many data structures in programming.
+One of the best example of queue is people standing in a row to get the movie tickets or train tickets. The person who comes first, will get the ticket first. For the same reason queue is also called **First In First Out (FIFO)** data structure.
+
+#### Important functions in Queue
+
+If we talk about very simple queue, then there are very limited functions a queue has.
+
+**enqueue():** This pushes the element at the end of the queue.
+
+**dequeue():** This removes and returns the element from the beginning of the queue.
+
+**size():** This returns the current size of the queue.
+
+#### Queue Implementation
+
+Queue can be implemented using array or linkedlist.
+We will use linkedlist to implement queue for below reasons:
+
+1. No limit on queue capacity
+2. Shifting elements is costly in array, we can avoid that when we dequeue elements
+
+```java
+class Node {
+    int data;
+    Node next;
+    public Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class Queue {
+    int size;
+    Node front;
+    Node rear;
+
+    public Queue() {
+        size = 0;
+        front = null;
+        rear = null;
+    }
+
+    public void enqueue(int data) {
+        Node node = new Node(data);
+        if(front == null) {
+            front = node;
+            rear = node;
+            size = size+1;
+        }
+        rear.next = node;
+        rear = rear.next;
+        rear.next = null;
+        size = size+1;
+    }
+
+    public int dequeue() {
+        int data = front.data;
+        front = front.next;
+        size = size-1;
+        return data;
+    }
+    public int size() {
+        return size;
+    }
+
+    public void printQueue() {
+        Node temp = front;
+        while(temp != null) {
+            System.out.print(temp.data+" ");
+            temp = temp.next;
+        }
+    }
+
+    public static void main(String[] args) {
+        Queue queue = new Queue();
+        queue.enqueue(10);
+        queue.enqueue(20);
+        queue.enqueue(30);
+        queue.printQueue();
+        System.out.println();
+        System.out.println("de-queued = "+queue.dequeue());
+        queue.printQueue();
+        System.out.println();
+        System.out.println("Current queue size="+ queue.size());
+    }
+}
+```
+
+#### Console output
+
+```console
+10 20 30 
+de-queued = 10
+20 30 
+Current queue size=3
+```
+
+Hope you liked this tutorial.
+You might also like other tutorials in this series <a href="/data-structures-fundamentals">here</a>

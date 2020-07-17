@@ -1,0 +1,130 @@
+---
+title: Git Fundamentals - II
+excerpt: not all conflicts are bad
+hero: git1.jpg
+date: 2020-04-20
+author: Arvind Pandey
+---
+
+Cover photo by <a href="https://unsplash.com/@umby" target="_blank">Umberto</a> on  <a href="https://unsplash.com/" target="blank">unsplash</a>
+
+I hope you are here after completing <strong><a href="/no-nonsense-guide-to-git-1">Part - I</a></strong> of this series.
+
+### Multiple users working on same repository:
+
+Let say John and Marina has to work on same repository called **autgentication-service** in the same sprint. John is working on a feature called **two factor authentication** and Marina is working on **token expiration**. They might need to touch some common file as well but they cannot wait one to finish before other starts. Git provides capability to do that.
+
+Both John and Marina can work parallelly by creating branch per feature.
+
+### Creating branch:
+
+Currently, both are in master branch.
+John creates a branch for his feature.
+
+```console
+$ git checkout -b two-factor-authentication
+```
+
+Similarly, Marina can create branch for her feature as well.
+
+```console
+$ git checkout -b token-expiration
+```
+
+They both worked independently and are ready to merge.
+
+### Merging of the branch:
+
+Let say John wants to merge first. He has to make sure he has the latest changes from both the branches. (In case someone else also pushed some changes to <i>two-factor-authentication</i>)
+
+```console
+$ git checkout two-factor-authentication
+$ git pull
+$ git checkout master
+$ git pull
+```
+
+Now he has all the changes. He is ready to merge. When merging from feature to destination branch (master here), make sure to be on the destination branch to perform the merge.
+
+```console.log
+$ git checkout master
+$ git merge two-factor-authentication
+```
+
+This should merge the changes from <i>two-factor-authentication</i> to <i>master</i>. (Assuming no merge conflict. We will cover merge conflict in the next section).
+
+Once changes are merged to the master. John has to push the changes. Before that he can check the git status. He should get console information that his remote is behind some commits. That's the sign of merge completed successfully.
+
+```console
+$ git status
+$ git push
+```
+
+Marina has also completed here task. She is ready to merge to master.
+She will also follow similar steps.
+
+```console
+$ git checkout token-expiration
+$ git pull
+$ git checkout master
+$ git pull
+```
+
+She is also ready to merge. Ignore checking out master, if you are already on master branch. But it does not bite.
+
+```console
+$ git checkout master
+$ git merge token-expiration
+```
+
+At this stage something interesting might happen. And it depends upon if John and Marina touched any common files.
+
+Let's take the happy scenario first. They had no common file change.
+Then merge is completed. She just need to push the changes to master.
+
+```console
+$ git push
+```
+
+But, if they worked on some common files, Marina might encounter merge conflict.
+
+### Dealing with merge conflict:
+
+The moment, she ran the command **git merge ...**, she might encounter few errors.
+These errors are the guide to which all files have merge conflict.
+Say, she got error in the file Greet.js. She opened the file to see what is wrong. Each conflict will have structure like below.
+
+```javascript
+<<<<<<<<<< HEAD:Greet.js (Current Change)
+Hey
+=============
+Hi
+>>>>>>>>>5ee318dc6fb475253c4e95f725dd634877798e6e:Greet.js (Incoming Change)
+```
+The first section is what she has currently, and second section is coming from conflict.
+Marina and John has to decide what should be the final change.
+It is not always either/or case, sometime we need both.
+They both need to agree and keep one of the two section or both.
+Lastly, it is also important to remove those weird symobls once conflicts are resolved.
+
+This has to be done for each file. After that Marina has to commit these changes.
+
+```console
+$ git status
+$ git add .
+$ git commit -m 'resolve merge conflicts'
+$ git push
+```
+
+### Deleting a branch:
+
+Once both are done developing the feature. It is good idea to get rid of unused branches.
+
+```console
+$ git branch -D <branch-name>
+```
+
+With that we have covered one more milestone.
+But it's just getting interesting. We will cover some more stuffs the in the next part.
+
+### <a href="/no-nonsense-guide-to-git-3">Continues Reading</a>

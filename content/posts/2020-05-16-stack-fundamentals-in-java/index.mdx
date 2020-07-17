@@ -1,0 +1,116 @@
+---
+title: Stack Fundamentals in Java
+excerpt: last in first out
+hero: stack.jpg
+date: 2020-05-16
+author: Arvind Pandey
+---
+Cover photo by <a href="https://unsplash.com/@enikoo" target="_blank">eniko kis</a>   on  <a href="https://unsplash.com/" target="blank">unsplash</a>
+### Stack
+
+#### What is Stack?
+
+Stack is one of the many data structures in programming.
+One of the best example of stack is books kept on top of each other on a table. The book kept on the top is picked first. For the same reason stack is also called **Last In First Out (LIFO)** data structure.
+
+#### Important functions in Stack
+
+If we talk about very simple stack, then there are very limited functions a stack has.
+
+**push():** This pushes the element at the top of the stack.
+
+**pop():** This removes and returns the element from the top of the stack.
+
+**size():** This returns the current size of the stack.
+
+**peek()** This just returns the top value without removing it from the stack.
+
+#### Stack Implementation
+
+Stack can be implemented using array or linkedlist.
+We will be using LinkedList for the demonstration.
+
+```java
+class Node {
+    int data;
+    Node next;
+    public Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class Stack {
+    Node top;
+    int size;
+    public Stack() {
+        top = null;
+        size = 0;
+    }
+
+    public void push(int data) {
+        Node node = new Node(data);
+        if(top == null) {
+            top = node;
+        } else {
+            Node temp = top;
+            top = node;
+            node.next = temp;
+        }
+        size = size+1;
+    }
+
+    public int pop() {
+        int val = top.data;
+        top = top.next;
+        size = size-1;
+        return val;
+    }
+
+    public int peek() {
+        return top.data;
+    }
+
+    public void printStack() {
+        Node temp = top;
+        while(temp != null) {
+            System.out.println(temp.data);
+            temp = temp.next;
+        }
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public static void main(String[] args) {
+        Stack stack = new Stack();
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+        System.out.println("Current stack printed below with size:"+stack.size());
+        stack.printStack();
+        System.out.println("Popped value:"+ stack.pop());
+        System.out.println("Current stack printed below with size:"+stack.size());
+        stack.printStack();
+        System.out.println("Peek the top value:"+stack.peek());
+    }
+}
+```
+
+#### Console output
+
+```console
+Current stack printed below with size:3
+30
+20
+10
+Popped value:30
+Current stack printed below with size:2
+20
+10
+Peek the top value:20
+```
+
+Hope you liked this tutorial.
+You might also like other tutorials in this series <a href="/data-structures-fundamentals">here</a>

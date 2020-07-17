@@ -1,0 +1,60 @@
+---
+title: Git Fundamentals - III
+excerpt: habits are powerful, do not underestimate them
+hero: git2.jpg
+date: 2020-04-21
+author: Arvind Pandey
+---
+
+Cover photo by <a href="https://unsplash.com/@avkshift" target="_blank">Victor Aznabaev </a> on <a href="https://unsplash.com/" target="blank">unsplash</a>
+
+This is part of Git series and I hope you have already completed <a href="/no-nonsense-guide-to-git-1">part 1</a> and <a href="/no-nonsense-guide-to-git-2">part 2</a>.
+
+We have covered most of the usual scenarios. In this chapter we will cover some of the best practices and how to recover from unlike events.
+
+### Best Practice I - smaller commits are better
+
+It is a good practice to have smaller commits. Event bigger features can be developed in increamental model. Smaller commits are easy to revert and less chances of hiding bugs.
+
+### Best Practices II - maintain .gitignore files
+
+Do not commit generated files. Maintain .gitignore file at the root of the folder and update all the files and folder that should not be tracked hence need not be committed.
+
+### Best Practices III - maintain .env files for confidential data
+
+Always maintain .env file to store passwords or secret key. We sometime hardcode it in the source code. People can misuse your credentials. Be careful.
+
+### Best Practice IV - always perform git status before doing any commit/merge/push
+
+Do not rely on your memory. The moment you resume your work inside the repository, type these two commands.
+
+```console
+$ git branch
+$ git status
+```
+I know you might be wondering why first command when second command is enough to tell the branch info as well. But git status might return many lines of information and chances are more to miss what branch you are in currently.
+Anyway, these two command will tell you, the status of the branch you are in currently.
+You might have uncommitted code or unpushed changes, this will be helpful for next step.
+
+### Best Practice V - always perform git pull before git push to remote branch
+
+This is very common miss from the developers. Typing git push and thinking nothing is left from his/her side. Remote repisotory might be ahead if someone already pushed code when you were developing your feature. You need to first git pull and merge locally and then git push. Otherwise, git push will fail and you might miss the error thinking push is successful.
+
+```console
+$ git pull 
+$ git push
+```
+
+### Recovering from unlike events
+
+#### I. Undoing a particular commit
+
+Suppose you wish to undo a particular commit due to some reason. Undo does not literally remove from the git history. Rather it reverts that changes and creates another commit(history).
+
+```console
+$ git revert <commit_hash>
+```
+
+For detailed info on git revert. Refer <a href="https://www.atlassian.com/git/tutorials/undoing-changes" target="_blank">this</a>
+
+More to be added...

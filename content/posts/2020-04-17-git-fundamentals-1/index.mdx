@@ -1,0 +1,91 @@
+---
+title: Git Fundamentals - I
+excerpt: remember the history, but can you revert it? In git world, yes.
+hero: git.jpg
+date: 2020-04-17
+author: Arvind Pandey
+---
+Cover photo by <a href="https://unsplash.com/@lintin9095" target="_blank">Linh Ha</a> on  <a href="https://unsplash.com/" target="blank">unsplash</a>
+
+### Getting started:
+
+Create a folder called **git-demo**
+
+```console
+$ mkdir git-demo
+$ cd git-demo
+```
+
+Create a file called Hello.js and write some code. For git it does not matter, what's inside the file. For the sake of having some code, we are creating this file.
+
+```javascript
+function Greet(name) {
+    console.log(`Hello, ${name}`);
+}
+
+Greet('Arvind'); // prints: Hello, Arvind
+```
+
+Similarly, you can add more files and folders.
+
+### Start tracking the changes:
+
+You have created folders and files and you want to start tracking the change versions.
+You need to inform git that I want to track all these files.
+You can do this by below command.
+
+```console
+$ git init
+```
+With that, any changes done inside this file will be tracked by git.
+
+### Add to staging:
+
+Run below command to add **all** the changes to staging
+
+```console
+$ git add .
+```
+
+You can also add selected file to staging by providing the file path.
+
+```console
+$ git add <file_path>
+```
+
+### Commit the changes:
+
+You can commit changes using below command.
+
+```console
+$ git commit -m "commit message"
+```
+
+The commit message is very important. Take time and write very descriptive commit message.
+
+### Add remote repository location:
+
+Generally development is done on local machine and changes are pushed to remote repository. You need to set the target respository localtion.
+
+```console
+$ git remote add origin <https://remote/repo/path.git>
+```
+
+### Push the changes:
+
+```console
+$ git push
+```
+
+This completes the basic cycle of using git.
+
+But this is hardly enough when working in real projects.
+Specially, when multiple people are working on same repository but on different features.
+And that's the sole reason why git exists,being multi-user. Like linux machines, multiple user can login to same machine and can work seamlessly.
+
+As a matter of the fact, the inventor of Linux kernel and git version control system is the same person **Linus Torvalds**.
+
+Coming back to multiple users working on same repository and on different features.
+How to overcome that?
+
+### <a href="/no-nonsense-guide-to-git-2">Continue Reading</a>

@@ -1,0 +1,94 @@
+---
+title: HashMap Fundamentals in Java
+excerpt: what if array indexes can be named
+hero: hashmap.jpg
+date: 2020-05-13
+author: Arvind Pandey
+---
+Cover photo by <a href="https://unsplash.com/@hudsoncrafted" target="_blank">Debby Hudson</a>   on  <a href="https://unsplash.com/" target="blank">unsplash</a>
+
+### HashMap
+
+#### What is HashMap
+
+HashMap is one many data structures in programming. It stores data in key-value format.
+Like, name can be key and value can be the actual name.
+HashMap can be thought of an special case of Array.
+Arrays also store values using key-value pair, the only thing is, in Array we have different form of key (indexes - 0, 1, 2..).
+
+#### How to declare HashMap
+
+```java
+HashMap<String, String> map = new HashMap<>();
+```
+
+#### Store values in the HashMap
+
+```java
+map.put("name", "Arvind Pandey");
+map.address("address", "Hyderabad");
+System.out.println(map); // Prints => {address=Hyderabad, name=Arvind Pandey}
+```
+
+#### Access values from HashMap
+
+Values can be retrieved using key.
+
+```java
+System.out.println(map.get("name")); // Prints => Arvind Pandey
+```
+
+#### Remove certain value from HashMap
+
+```java
+map.remove("name");
+```
+
+#### Remove all values from HashMap
+
+```java
+map.clear();
+```
+#### Loop through a HashMap
+
+For-each loop can be used to loop through HashMap.
+
+**Print all the keys**
+
+```java
+for(String key: map.keySet()) {
+  System.out.println(key+ ", "); // Prints => address, name
+}
+```
+
+**Print all the values**
+
+```java
+for(String value: map.values()) {
+  System.out.print(value+", "); // Prints => Hyderabad, Arvind Pandey
+}
+```
+
+**Print all key-value pairs**
+
+```java
+for(String key: map.keySet()) {
+  System.out.print("key: "+key+", value: "+map.get(key)); // Prints key:value pair on different line
+}
+```
+
+#### One more way to loop through HashMap
+
+There is another way to loop over HashMap, using iterator.
+
+```java
+Iterator itr = map.entrySet().iterator();
+while(itr.hasNext()) {
+  System.out.println(itr.next()); // Prints key=value pair on different line
+}
+```
+
+That's pretty much a very fundamental level about HashMap.
+
+Hope you liked this tutorial.
+You might also like other tutorials in this series <a href="/data-structures-fundamentals">here</a>
