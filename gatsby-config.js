@@ -5,8 +5,8 @@ module.exports = {
     siteUrl: `https://arvindpandey.in`,
     description: `My name is Arvind Pandey. I'm a Computer Science graduate from NIT Warangal. Other than writing code, I enjoy running too.`,
     hero: {
-      heading: `Hey, Good Morning`,
-      maxWidth: 652,
+      heading: `The more you learn, the more you can learn.`,
+      maxWidth: 1200,
     },
     social: [
       {
