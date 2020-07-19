@@ -5,8 +5,8 @@ module.exports = {
     siteUrl: `https://www.cscamp.org`,
     description: `CsCamp.org is a portal for the geeks to learn coding. It focuses on core computer science topics.`,
     hero: {
-      heading: `A portal for Computer Science enthusiast`,
-      maxWidth: 1200,
+      heading: `A portal for Computer Science enthusiast.`,
+      maxWidth: 652,
     },
     social: [
       {

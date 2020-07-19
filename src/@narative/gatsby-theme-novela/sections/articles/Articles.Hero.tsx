@@ -18,7 +18,7 @@ const authorQuery = graphql`
           siteMetadata {
             # sample comment
             hero {
-              # heading
+              heading
               maxWidth
             }
           }
@@ -109,7 +109,7 @@ const GridControlsContainer = styled.div`
 `;
 
 const HeadingContainer = styled.div`
-  margin: 100px 0;
+  margin: 70px 0;
 
   ${mediaqueries.desktop`
     width: 80%;
