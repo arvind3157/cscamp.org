@@ -1,11 +1,11 @@
 module.exports = {
   siteMetadata: {
-    title: `Arvind Pandey`,
-    name: `Arvind`,
-    siteUrl: `https://arvindpandey.in`,
-    description: `My name is Arvind Pandey. I'm a Computer Science graduate from NIT Warangal. Other than writing code, I enjoy running too.`,
+    title: `CsCamp | A Portal for Computer Science Enthusiast`,
+    name: `CsCamp`,
+    siteUrl: `https://www.cscamp.org`,
+    description: `CsCamp.org is a portal for the geeks to learn coding. It focuses on core computer science topics.`,
     hero: {
-      heading: `The more you learn, the more you can learn.`,
+      heading: `A portal for Computer Science enthusiast`,
       maxWidth: 1200,
     },
     social: [
@@ -47,8 +47,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Arvind Pandey`,
-        short_name: `Arvind`,
+        name: `CsCamp.org`,
+        short_name: `CsCamp`,
         start_url: `/`,
         background_color: `#fff`,
         theme_color: `#fff`,
@@ -59,7 +59,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: "UA-118232427-3",
+        trackingId: "UA-118232427-3-dummy",
       },
     },
   ],
