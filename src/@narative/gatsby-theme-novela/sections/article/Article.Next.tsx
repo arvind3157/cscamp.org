@@ -119,7 +119,7 @@ const Grid = styled.div<{ numberOfArticles: number }>`
 
 const ImageContainer = styled.div`
   position: relative;
-  height: 280px;
+  height: 140px;
   box-shadow: 0 30px 60px -10px rgba(0, 0, 0, ${p => (p.narrow ? 0.22 : 0.3)}),
     0 18px 36px -18px rgba(0, 0, 0, ${p => (p.narrow ? 0.25 : 0.33)});
   margin-bottom: 30px;
@@ -131,12 +131,12 @@ const ImageContainer = styled.div`
   }
 
   ${mediaqueries.tablet`
-    height: 220px;
+    height: 110px;
     margin-bottom: 35px;
   `}
 
   ${mediaqueries.phablet`
-    height: 200px;
+    height: 100px;
     margin-bottom: 0;
     box-shadow: none;
     overflow: hidden;

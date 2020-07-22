@@ -50,8 +50,7 @@ const ArticlesHero: React.FC<IAuthor> = ({ authors }) => {
       <HeadingContainer style={{ maxWidth: `${hero.maxWidth}px` }}>
         <HeroHeading dangerouslySetInnerHTML={{ __html: hero.heading }} />
       </HeadingContainer>
-      { /*
-      <SubheadingContainer>
+      {/*<SubheadingContainer>
         <Bio author={featuredAuthor} />
         <GridControlsContainer>
           <GridButton
@@ -73,7 +72,7 @@ const ArticlesHero: React.FC<IAuthor> = ({ authors }) => {
             <Icons.Rows />
           </GridButton>
         </GridControlsContainer>
-  </SubheadingContainer> */}
+      </SubheadingContainer> */}
     </Section>
   );
 };
