@@ -39,12 +39,12 @@ const Aside: React.FC<AsideProps> = ({ contentHeight, children }) => {
   );
 
   useEffect(() => {
-    const imageRect = document
-      .getElementById("ArticleImage__Hero")
-      .getBoundingClientRect();
+    //const imageRect = document
+     // .getElementById("ArticleImage__Hero")
+     // .getBoundingClientRect();
 
-    const imageOffsetFromTopOfWindow = imageRect.top + window.scrollY;
-    setImageOffset(imageOffsetFromTopOfWindow);
+    //const imageOffsetFromTopOfWindow = imageRect.top + window.scrollY;
+    //setImageOffset(imageOffsetFromTopOfWindow);
 
     const handleScroll = throttle(() => {
       const el = progressRef.current;
@@ -57,9 +57,9 @@ const Aside: React.FC<AsideProps> = ({ contentHeight, children }) => {
 
       setProgress(clamp(+percentComplete.toFixed(2), 0, 105));
 
-      if (top + window.scrollY < imageOffsetFromTopOfWindow) {
-        return setShouldFixAside(false);
-      }
+      // if (top + window.scrollY < imageOffsetFromTopOfWindow) {
+      //   return setShouldFixAside(false);
+      // }
 
       if (top + height / 2 <= windowHeight / 2) {
         return setShouldFixAside(true);

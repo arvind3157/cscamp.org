@@ -83,7 +83,7 @@ const Article: Template = ({ pageContext, location }) => {
   return (
     <Layout>
       <ArticleSEO article={article} authors={authors} location={location} />
-      <ArticleHero article={article} authors={authors} />
+      {/*<ArticleHero article={article} authors={authors} /> */ }
       <ArticleAside contentHeight={contentHeight}>
         <Progress contentHeight={contentHeight} />
       </ArticleAside>
