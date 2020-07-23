@@ -172,11 +172,11 @@ const NavContainer = styled.div`
   justify-content: space-between;
 
   ${mediaqueries.desktop_medium`
-    padding-top: 50px;
+    padding-top: 35px;
   `};
 
   @media screen and (max-height: 800px) {
-    padding-top: 50px;
+    padding-top: 35px;
   }
 `;
 
