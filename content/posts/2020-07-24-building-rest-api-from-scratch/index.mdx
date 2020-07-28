@@ -1,0 +1,409 @@
+---
+title: Building Rest API from scratch in Node.js
+excerpt: building crud application using express.js
+hero: ds.jpg
+date: 2020-07-24
+author: Arvind Pandey
+---
+
+#### Purpose of this tutorial?
+<br />
+
+We will build set of Rest APIs to perform CRUD operation.
+The choice of tool is node.js and express.js.
+
+#### What we will build?
+Guess what, another ToDos app?
+You are right. It might sound very traditional and boring to build another ToDo app
+but trust me, fundamentally it teaches almost everything to get started with.
+
+#### What is Node.js?
+<br />
+
+Node.js is runtime environment for Javascript.
+It became quite popular from its inception in 2009.<br />
+For detailed history you can read [it here](https://en.wikipedia.org/wiki/Node.js)
+
+#### What is Express.js
+<br />
+
+Express.js is unopinionated web development framework.
+It's built on top of the Node.js. We could ideally write our code in pure Node.js code but
+we might end up building another express.js. Because express.js is already
+quite popular and well tested, we will use its power and capability to build APIs faster.
+
+
+#### API Signatures
+<br />
+
+Before building the actual APIs, let define the contract. Contract is nothing but
+agreeing product's interface and what it will return.
+
+```javascript
+// CRUD
+POST /todos   // C --> Create
+GET /todos    // R --> Read
+GET /todos/:id // R --> Read
+PUT /todos/:id      // U --> Update
+DELETE /todos/:id  // D --> Delete
+```
+
+#### What is not in the scope?
+<br />
+
+We will not cover database setup and connection.
+We will cover that in another article.
+
+#### Let's start
+<br />
+
+#### 1. Install node.js on your machine
+<br />
+
+Download the node.js installer from this [link](https://nodejs.org/en/download/).
+
+
+#### 2. Setup the project
+<br />
+
+a. Create a directory called **todo-app**
+
+```console
+mkdir todo-app
+```
+
+b. Go inside the directory
+
+```console
+$ cd todo-app
+```
+
+c. Create a npm project using npm init command. Provide on screen inputs.
+
+```console
+$ npm init
+This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sensible defaults.
+
+See `npm help json` for definitive documentation on these fields
+and exactly what they do.
+
+Use `npm install <pkg>` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+package name: (todo-app)
+version: (1.0.0)
+description: todo app
+entry point: (index.js) app.js
+test command:
+git repository:
+keywords:
+author: Arvind Pandey
+license: (ISC)
+About to write to /Users/arvind/Documents/todo-app/package.json:
+
+{
+  "name": "todo-app",
+  "version": "1.0.0",
+  "description": "todo app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arvind Pandey",
+  "license": "ISC"
+}
+```
+This will create a file called package.json
+This file is a kind of manifest of the application.
+
+If you look at the content of the package.json, it would similar to below file content.
+
+```json
+{
+  "name": "todo-app",
+  "version": "1.0.0",
+  "description": "todo app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arvind Pandey",
+  "license": "ISC"
+}
+```
+
+The interesting thing here is the entry point **app.js**
+We will come to that very soon.
+
+#### 3. Add express.js to the project
+<br />
+
+We need to add express.js to the project before we proceed further.
+Run below command.
+
+```console
+npm install express --save
+```
+
+It will install latest stable express version and it will
+add express as dependency in package.json.
+
+#### 4. Creating the express app
+<br />
+
+Now is the time to write some code. Create app.js and write below code.
+
+```javascript
+const express = require('express');
+const app = express();
+const PORT = 4000;
+app.listen(PORT, ()=>{
+console.log(`Listening on port ${PORT}`);
+})
+```
+
+Let's go line by line to see what's happening. <br />
+**Line 1:** It's very similar to import statement in Java. 
+We are getting the reference of express library. That we will use to create the app. <br />
+**Line 2:** Creating the app by invoking the express(). <br />
+**Line 3:** Defining a variable PORT that we will use to run our app on. <br />
+**Line 4:** Invoking listen() function to bind a port to the app. <br />
+**Line 5:** listen() function accepts 2 arguments.
+First argument is the port and second is a call back function. Line 5 is the body of the call back function.
+Not doing anything fancy, just printing some message on the console.
+
+Start the server with below command.
+
+```console
+node app.js
+```
+
+If you see below message on the console then your server started successfully.
+Yay!
+
+```console
+$ node app.js 
+Listening on port 4000
+```
+
+#### 5. Adding the first route
+<br />
+
+If we understand the first route, others will be quite similar.
+
+Let's add root route to our app. When some hits the root path what do we want to return.
+
+```console
+app.get('/', (req, res) => {
+  res.send({'path':'home page'});
+});
+```
+
+Let's see what is happening.
+
+1. app.get() is telling this is going to define a get call.
+2. The first argument to the get() is the part.
+3. The second argument is the call back function, where we handle the request and response.
+
+The first argument is the request object and second is the response object.
+We are not expecting anything from request object so, we are not bothering it.
+
+We are just sending back the sample json response.
+
+Stop the server and restart again.
+
+```console
+node app.js
+```
+
+Go to the browser and hit the url http://localhost:4000/
+
+You should see the below json response on your browser.
+
+```json
+{
+  "path": "home page"
+}
+```
+
+That concludes the first route. It was quite minimal and easy to digest. (I hope so!).
+
+We are going to cover remaining routes.
+Before that install an API client like [postman](https://www.postman.com/) to test the rest interface.
+
+#### 6. ToDo - The Model
+<br />
+
+The typical todos just contain the list of tasks to accomplish.
+For us just one field is enough to store the data, the task field.
+Because we are not dealing with database here,
+we expect id also to be passed when creating the To-Do.
+
+Below is the sample POST request body.
+
+```json
+{
+  'id': '1',
+  'task': 'write article on javascript'
+}
+```
+
+##### Storing the To-Dos
+
+We will store all the To-Dos in an array on objects.
+
+#### 7. Create ToDos - <i>POST /todos</i>
+<br />
+
+Add below code snippet to app.js file.
+Restart the server.
+
+```javascript
+app.use(express.json());
+let todos = [];
+app.post('/todos', (req, res) => {
+  todos.push(req.body);
+  res.send({ 'message':'success' } );
+})
+```
+
+This does the very minimum thing. If you try doing a post call using postman client,
+you should be able to post the todos.
+
+There are so many things wrong about the code above. Here are few things.
+
+1. Id is not mandatory, will be difficult to track todos.
+2. It accepts duplicate ids, that means you cann't differentiate one todo with other.
+3. It can create todos without task field. Without task value, todos are of no value.
+3. What if something goes wrong while posting, we are not handling the error scenarios.
+
+Keeping that in the mind, here is few things, we should do to make it more robust.
+
+1. Check for the id to be present in the body
+2. Check for task field is not empty
+3. Do not allow duplicate ids.
+4. Handle the error and set the status code correctly.
+
+Below code snippet does the basic house keeping that is mentioned above.
+
+```javascript
+app.use(express.json());
+let todos = [];
+app.post('/todos', (req, res) => {
+  try {
+    if(req.body.id == null || req.body.task == null) {
+      res.json({'message':'id and task fields are mandatory to pass in the body'});
+      return;
+    }
+    if (todos.filter((item) =>req.body.id == item.id).length > 0) {
+      res.status(500);
+      res.json({'error':'use unique id'});
+    } else {
+      todos.push(req.body);
+      res.json({ 'message':'success' } );
+    }
+  } catch (error) {
+    res.status(500);
+    res.json({'error':'something went wrong'});
+  }
+})
+
+app.listen(PORT, ()=>{
+  console.log(`Listening on port ${PORT}`);
+})
+```
+
+Now, our POST API is in good shape. You can try with postman.
+Test both positive and negative scenarios.
+
+That concludes the first route.
+
+#### 8. Retrieve all the ToDos - <i>GET /todos</i>
+<br />
+
+Now that we have created the todos, we need API to get all the todos.
+We need define a GET API call.
+
+Copy and paste below code snippted and restart the server.
+
+
+```javascript
+app.get('/todos', (req, res) => {
+  res.send(todos);
+});
+```
+
+Now, restart you server. Using postman perform below steps.
+
+1. Create some todos using POST /todos API
+2. Get all todos using GET /todos
+
+#### 9. Get a todo by its id - <i>GET /todos/:id</i>
+<br />
+
+We can retrieve a todo by its id.
+Below is the code snippted. You can copy and past to app.js
+
+```javascript
+app.get('/todos/:id', (req, res) => {
+  try {
+    if (todos.filter((item) =>req.params.id == item.id).length > 0) {
+      let r = todos.find(item => item.id == req.params.id);
+      res.send(r);
+    } else {
+      res.send({'message': `no result found with id: ${req.params.id}`});
+    }
+  } catch (error) {
+    res.status(500);
+    res.json({'error':'something went wrong'});
+  }
+});
+```
+
+#### 10. Update a particular todo - <i>PUT /todos/:id</i>
+
+```javascript
+app.put('/todos/:id', (req, res) => {
+  try {
+    if(req.body.task == null) {
+      res.json({'message':'id and task fields are mandatory to pass in the body'});
+      return;
+    }
+
+    if (todos.filter((item) =>req.params.id == item.id).length > 0) {
+      todos.find(item => item.id == req.params.id).task = req.body.task
+      res.json({'message':'update successful'});
+    } else {
+      res.json({'message': `no todo found with id: ${req.params.id}`});
+    }
+  } catch (error) {
+    res.status(500);
+    res.json({'error':'something went wrong'});
+  }
+})
+```
+#### 11. Delete a todo - <i> DELETE /todos/:id</i>
+
+```javascript
+app.delete('/todos/:id', (req, res) => {
+  try {
+    if(todos.filter(item => item.id == req.params.id).length > 0) {
+      let r = todos.filter(item => item.id != req.params.id);
+      todos = [...r];
+      res.json({'message':'success'});
+    } else {
+      res.json({'message': `no todo found with id: ${req.params.id}`});
+    }
+  } catch (error) {
+    res.status(500);
+    res.json({'error':'something went wrong'});
+  }
+})
+```
+You can find completed source code at Github.
+Here is the [link](https://github.com/CsCamp-org/note-app).
+<br />
+
+That was all folks. Happy learning!
