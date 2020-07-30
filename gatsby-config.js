@@ -35,9 +35,11 @@ module.exports = {
     {
       resolve: "@narative/gatsby-theme-novela",
       options: {
+        authorsPage: true,
         contentPosts: "content/posts",
         contentAuthors: "content/authors",
         basePath: "/",
+        pageLength: 16,
         sources: {
           local: true,
           contentful: false
@@ -59,7 +61,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: "UA-118232427-3-dummy",
+        trackingId: "UA-174093877-1",
       },
     },
   ],
