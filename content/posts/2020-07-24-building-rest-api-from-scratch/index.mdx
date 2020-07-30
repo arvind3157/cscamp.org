@@ -6,16 +6,18 @@ date: 2020-07-24
 author: Arvind Pandey
 ---
 
-#### Purpose of this tutorial?
+#### Scope of this tutorial
 <br />
 
-We will build set of Rest APIs to perform CRUD operation.
-The choice of tool is node.js and express.js.
+1. Node.js setup
+2. Building REST API for a todo app using express.js
+3. Error handling
+4. Test API using postman REST client
 
-#### What we will build?
-Guess what, another ToDos app?
-You are right. It might sound very traditional and boring to build another ToDo app
-but trust me, fundamentally it teaches almost everything to get started with.
+#### What is not in the scope
+
+1. Using database with node.js
+2. Authentication for API
 
 #### What is Node.js?
 <br />
@@ -32,8 +34,25 @@ It's built on top of the Node.js. We could ideally write our code in pure Node.j
 we might end up building another express.js. Because express.js is already
 quite popular and well tested, we will use its power and capability to build APIs faster.
 
+#### Node.js Setup
+<br />
 
-#### API Signatures
+Download the node.js installer from this [link](https://nodejs.org/en/download/).
+
+To verify that node is installed successfully, type node in the terminal or console.
+It should enter to node console where you can run write javascript code snippets and run it.
+
+```console
+Arvinds-MacBook-Pro:cscamp.org arvind$ node
+>
+```
+
+If you see anything else then there is some problem with your setup.
+
+#### Building REST API for a todo app using express.js
+<br />
+
+#### API Signatures:
 <br />
 
 Before building the actual APIs, let define the contract. Contract is nothing but
@@ -48,22 +67,7 @@ PUT /todos/:id      // U --> Update
 DELETE /todos/:id  // D --> Delete
 ```
 
-#### What is not in the scope?
-<br />
-
-We will not cover database setup and connection.
-We will cover that in another article.
-
-#### Let's start
-<br />
-
-#### 1. Install node.js on your machine
-<br />
-
-Download the node.js installer from this [link](https://nodejs.org/en/download/).
-
-
-#### 2. Setup the project
+#### Setup the project
 <br />
 
 a. Create a directory called **todo-app**
@@ -137,7 +141,7 @@ If you look at the content of the package.json, it would similar to below file c
 The interesting thing here is the entry point **app.js**
 We will come to that very soon.
 
-#### 3. Add express.js to the project
+#### Add express.js to the project
 <br />
 
 We need to add express.js to the project before we proceed further.
@@ -150,7 +154,7 @@ npm install express --save
 It will install latest stable express version and it will
 add express as dependency in package.json.
 
-#### 4. Creating the express app
+#### Creating the express app
 <br />
 
 Now is the time to write some code. Create app.js and write below code.
@@ -188,7 +192,7 @@ $ node app.js
 Listening on port 4000
 ```
 
-#### 5. Adding the first route
+#### Adding the first route
 <br />
 
 If we understand the first route, others will be quite similar.
@@ -233,7 +237,7 @@ That concludes the first route. It was quite minimal and easy to digest. (I hope
 We are going to cover remaining routes.
 Before that install an API client like [postman](https://www.postman.com/) to test the rest interface.
 
-#### 6. ToDo - The Model
+#### ToDo - The Model
 <br />
 
 The typical todos just contain the list of tasks to accomplish.
@@ -254,7 +258,7 @@ Below is the sample POST request body.
 
 We will store all the To-Dos in an array on objects.
 
-#### 7. Create ToDos - <i>POST /todos</i>
+#### Create ToDos - <i>POST /todos</i>
 <br />
 
 Add below code snippet to app.js file.
@@ -272,12 +276,15 @@ app.post('/todos', (req, res) => {
 This does the very minimum thing. If you try doing a post call using postman client,
 you should be able to post the todos.
 
-There are so many things wrong about the code above. Here are few things.
+#### Error handling
+
+There are so many things wrong about the code above. Here are few of them.
 
 1. Id is not mandatory, will be difficult to track todos.
 2. It accepts duplicate ids, that means you cann't differentiate one todo with other.
 3. It can create todos without task field. Without task value, todos are of no value.
 3. What if something goes wrong while posting, we are not handling the error scenarios.
+
 
 Keeping that in the mind, here is few things, we should do to make it more robust.
 
@@ -320,7 +327,7 @@ Test both positive and negative scenarios.
 
 That concludes the first route.
 
-#### 8. Retrieve all the ToDos - <i>GET /todos</i>
+#### Retrieve all the ToDos - <i>GET /todos</i>
 <br />
 
 Now that we have created the todos, we need API to get all the todos.
@@ -340,7 +347,7 @@ Now, restart you server. Using postman perform below steps.
 1. Create some todos using POST /todos API
 2. Get all todos using GET /todos
 
-#### 9. Get a todo by its id - <i>GET /todos/:id</i>
+#### Get a todo by its id - <i>GET /todos/:id</i>
 <br />
 
 We can retrieve a todo by its id.
@@ -362,7 +369,7 @@ app.get('/todos/:id', (req, res) => {
 });
 ```
 
-#### 10. Update a particular todo - <i>PUT /todos/:id</i>
+#### Update a particular todo - <i>PUT /todos/:id</i>
 
 ```javascript
 app.put('/todos/:id', (req, res) => {
@@ -384,7 +391,7 @@ app.put('/todos/:id', (req, res) => {
   }
 })
 ```
-#### 11. Delete a todo - <i> DELETE /todos/:id</i>
+#### Delete a todo - <i> DELETE /todos/:id</i>
 
 ```javascript
 app.delete('/todos/:id', (req, res) => {
@@ -402,8 +409,36 @@ app.delete('/todos/:id', (req, res) => {
   }
 })
 ```
-You can find completed source code at Github.
+
+#### Testing the API using postman
+
+We have covered all the routes. Let's test each route one by one.
+
+I hope you have already installed [Postman](https://www.postman.com/) client.
+
+#### Create Todos - <i>POST /todos</i>
+<br />
+
+![POST Call](POST.png)
+
+
+#### Get Todos - <i>GET /todos</i>
+<br />
+
+![GET Call](GET.png)
+
+#### Update a Todo - <i>PUT /todos/:id</i>
+<br />
+
+![GET Call](PUT.png)
+
+#### Delete a Todo - <i>DELETE /todos/:id</i>
+<br />
+
+![GET Call](DELETE.png)
+
+You can find complete source code at Github.
 Here is the [link](https://github.com/CsCamp-org/note-app).
 <br />
 
-That was all folks. Happy learning!
+Happy Learning!
