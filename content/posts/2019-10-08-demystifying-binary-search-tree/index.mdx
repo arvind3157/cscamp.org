@@ -29,10 +29,13 @@ So, this has 3 elements, data, and two pointers. We call them a Node. The struct
 
 That was a pictorial representation of a Node. We need to define the same structure programmatically. Let’s try in javascript.
 
-```
-Class Node { 
-    constructor(data) { 
-        this.data = data; 
+```java
+class Node {
+    int data;
+    Node left;
+    Node right;
+    public Node(int data) {
+        this.data = data;
         this.left = null;
         this.right = null;
     }
@@ -41,8 +44,8 @@ Class Node {
 
 The above definition doesn’t create any Node, it just creates a blueprint of the Node. Using this blueprint, we will create our first Node and this below line does the magic.
 
-```
-let node_1 = new Node(8);
+```java
+Node node_1 = new Node(8);
 ```
 
 You can picture the 3rd image, it has created a Node with data 8 and both pointers pointing to nothing YET.
@@ -51,10 +54,10 @@ You can picture the 3rd image, it has created a Node with data 8 and both pointe
 
 You can create more Nodes now. Let say, I have created 3 more nodes
 
-```
-let node_2 = new Node(3);
-let node_3 = new Node(10);
-let node_4 = new Node(6);
+```java
+Node node_2 = new Node(3);
+Node node_3 = new Node(10);
+Node node_4 = new Node(6);
 ```
 
 Now you have 4 nodes total. The current picture is like below.
@@ -65,7 +68,7 @@ Now you have 4 nodes total. The current picture is like below.
 
 We have created lot of nodes but they are not connected. Let’s connect them according to the definition of Binary Search Tree.
 
-```
+```java
 node_1.left = node_2; // because node_2.data < node_1.data
 node_1.right = node_3; // because node_3.data > node_1.data
 node_2.right = node_4; // because node_4.data > node_2.data
@@ -85,25 +88,26 @@ In theory, that was all about Binary Search Tree. But it will become crazy after
 
 I could directly introduce the term but I want you to relate it with a real-life example. There exists a tree and you want to climb the tree. Ideally, you would be looking for the root of the tree to start with. Once you have the root of the tree, you can climb the tree, you can pluck fruits or you can attach a few artificial fruits to it. (Nobody does that, are you kidding?). So, one thing we figured out we need root to start with. Coming back to our example, we start with nothing. As we add nodes, we need to make sure, root points to the first node. (Always!).
 
-```
-class BinarySearchTree { 
-    constructor() { 
-        this.root = null;
+```java
+class BST { 
+    Node root;
+    public BST() {
+      this.root = null;
     }
 }
 ```
 
 If we just stop here and see what power it has now. Let’s build same nodes again and make sure root points to the first node.
 
-```
-let BST = new BinarySearchTree(); // root is null 
-let node_1 = new Node(8); // This is first node, root should point to this node 
-root = node_1;
-let node_2 = new Node(3);
+```java
+BST bst = new BST(); // root is null 
+Node node_1 = new Node(8); // This is first node, root should point to this node 
+bst.root = node_1;
+Node node_2 = new Node(3);
 node_1.left = node_2;
-let node_3 = new Node(10);
+Node node_3 = new Node(10);
 node_1.right = node_3;
-let node_4 = new Node(6);
+Node node_4 = new Node(6);
 node_2.right = node_4;
 ```
 
@@ -113,25 +117,25 @@ Here is the current picture.
 
 We have added the root to our tree, anybody wants to inspect (climb) all the elements can do so by starting at the root. We solved the problem of tracking but adding the nodes is still a challenge. We need to add a method to the BinarySearchTree class to add the nodes.
 
-```
-addNode(data) {
+```java
+public void addNode(int data) {
 
 }
 ```
 
 This method should use the blueprint created for Node.
 
-```
-addNode(data) {
-    let node = new Node(data);
+```java
+public void addNode(int data) {
+    Node node = new Node(data);
 }
 ```
 
 When addNode() is invoked, by this time it has created a Node with given data. Keep in mind if it is the first node, the root should point to this node. Let’s add that check.
 
-```
-addNode(data) {
-    let node = new Node(data);
+```java
+public void addNode(int data) {
+    Node node = new Node(data);
     if(this.root === null) {
         root = node;
     }
@@ -140,9 +144,9 @@ addNode(data) {
 
 Great! You have added the first node and the root is also pointing to it. Now comes the challenging part. If it’s not the first node, where this node should go? We need the help of the root. We have the node and we have the root, we need to add another method that takes these two arguments and solves the problem for us, we don’t need to worry.
 
-```
-addNode(data) {
-    let node = new Node(data);
+```java
+public void addNode(int data) {
+    Node node = new Node(data);
     if(this.root === null) {
         this.root = node;
     } else {
@@ -153,16 +157,16 @@ addNode(data) {
 
 I lied to make you happy for 1 nanosecond, we need to worry about insertNode(). This method will insert the node depending upon its value.
 
-```
-insertNode(node, root) {
+```java
+private void insertNode(Node node, Node root) {
     if(node.data < root.data) {
-        if(root.left === null) {
+        if(root.left == null) {
             root.left = node; 
         } else {
             this.insertNode(node, root.left);
         }
     } else {
-        if(root.right === null) {
+        if(root.right == null) {
             root.right = node;
         } else {
             this.insertMethod(node, root.right);
@@ -173,80 +177,92 @@ insertNode(node, root) {
 
 Bad! That was a hell lot of code thrown at once. Sorry, still figuring out how can I break it further. Anyway, it works. We have a systematic way to add more nodes to the system. Next, we wish to climb the tree and print all the nodes in sorted order. You can also explore different kinds of tree traversal algorithms <a href="https://en.wikipedia.org/wiki/Tree_traversal" target="_blank">here.</a>
 
-```
-printInOrder(root) {
+```java
+public void printInOrder(Node root) {
     if(this.root === null) {
         return;
     }
     this.printInOrder(root.left);
-    console.log(root.data);
+    System.out.println(root.data);
     this.printInOrder(root.right);
 }
 ```
 
 ### Driver Program
 
-```
-let bst = new BinarySearchTree();
-bst.addNode(8);
-bst.addNode(3);
-bst.addNode(10);
-bst.addNode(6);
-bst.printInOrder(bst.root); // prints 3,6,8,10
+```java
+public static void main(String[] args) {
+    BST bst = new BST();
+    bst.addNode(8);
+    bst.addNode(3);
+    bst.addNode(10);
+    bst.addNode(6);
+    bst.printInOrder(bst.root); // prints 3,6,8,10
+}
 ```
 
 ### Putting everything together
 
-```
+```java
 class Node {
-    constructor(data) {
-        this.data = data;
-        this.left = null;
-        this.right = null;
-    }
+  int data;
+  Node left;
+  Node right;
+  public Node(int data) {
+    this.data = data;
+    this.left = null;
+    this.right = null;
+  }
 }
+
 class BST {
-    constructor() {
-        this.root = null;
+    Node root;
+    public BST() {
+      this.root = null;
     }
-    add(data) {
-        let node = new Node(data);
-        if(this.root === null) {
+    public void add(int data) {
+        Node node = new Node(data);
+        if(this.root == null) {
             this.root = node;
         } else {
             this.insertNode(node, this.root);
         }
     }
-    insertNode(node, root) {
+    private void insertNode(Node node, Node root) {
         if(node.data < root.data) {
-            if(root.left === null) {
+            if(root.left == null) {
                 root.left = node;
         } else {
             this.insertNode(node, root.left);
             }
         } else {
-            if(root.right === null) {
+            if(root.right == null) {
                 root.right = node;
             } else {
                 this.insertNode(node, root.right);
             }
         }
     }
-    printInorderBST(root) {
-        if(root === null) {
+    public void printInorderBST(Node root) {
+        if(root == null) {
             return;
         } 
         this.printInorderBST(root.left);
-        console.log(root.data);
+        System.out.println(root.data);
         this.printInorderBST(root.right);
    }
 }
-let bst = new BST();
-bst.add(8);
-bst.add(3);
-bst.add(10);
-bst.add(6);
-bst.printInorderBST(bst.root); // prints 3,6,8,10
+
+public class BSTDriver {
+  public static void main(String[] args) {
+    BST bst = new BST();
+    bst.add(8);
+    bst.add(3);
+    bst.add(10);
+    bst.add(6);
+    bst.printInorderBST(bst.root); // prints 3,6,8,10   
+  }
+}
 ```
 
 Hope you liked this tutorial.
