@@ -1,11 +1,11 @@
 module.exports = {
   siteMetadata: {
-    title: `CsCamp | A Portal for Computer Science Enthusiast`,
+    title: `CsCamp | A Portal for Computer Science Enthusiasts`,
     name: `CsCamp`,
     siteUrl: `https://www.cscamp.org`,
     description: `CsCamp.org is a portal for the geeks to learn coding. It focuses on core computer science topics.`,
     hero: {
-      heading: `A portal for Computer Science enthusiast.`,
+      heading: `A portal for Computer Science enthusiasts.`,
       maxWidth: 652,
     },
     social: [
