@@ -32,13 +32,13 @@ const ArticleHero: React.FC<ArticleHeroProps> = ({ article, authors }) => {
           </ArticleMeta>
         </HeroSubtitle>
       </Header>
-     {/* <HeroImage id="ArticleImage__Hero">
+      <HeroImage id="ArticleImage__Hero">
         {hasHeroImage ? (
           <Image src={article.hero.full} />
         ) : (
           <ImagePlaceholder />
         )}
-        </HeroImage> */}
+        </HeroImage>
     </Hero>
   );
 };
@@ -86,7 +86,7 @@ const Header = styled.header`
   z-index: 10;
   margin:100px auto 120px;
   padding-left: 68px;
-  max-width: 749px;
+  max-width: 800px;
 
   ${mediaqueries.desktop`
     padding-left: 53px;
@@ -111,7 +111,7 @@ const Header = styled.header`
 `;
 
 const HeroHeading = styled(Headings.h1)`
-  font-size: 48px;
+  font-size: 40px;
   font-family: ${p => p.theme.fonts.serif};
   margin-bottom: 25px;
   font-weight: bold;
@@ -163,11 +163,11 @@ const HeroSubtitle = styled.div<{ hasCoAUthors: boolean }>`
 
 const HeroImage = styled.div`
   position: relative;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
-  max-width: 944px;
+  // max-width: 1044px;
   overflow: hidden;
-  margin: 0 auto;
+  margin: 20px auto 0px auto;
   box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.2),
     0 18px 36px -18px rgba(0, 0, 0, 0.22);
 
