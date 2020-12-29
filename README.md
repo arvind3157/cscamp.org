@@ -1,8 +1,8 @@
-### CS Camp
+### Arvind Pandey
 
-[CS Camp](https://www.cscamp.org)
+[Arvind Pandeu](https://arvindpandey.in)
 
-A place to share knowledge on computer science.
+Personal Blog to share my experience in Computer Science and Running.
 
 #### License
 

@@ -47,9 +47,9 @@ const ArticlesHero: React.FC<IAuthor> = ({ authors }) => {
 
   return (
     <Section relative id="Articles__Hero">
-      <HeadingContainer style={{ maxWidth: `${hero.maxWidth}px` }}>
+      {/*<HeadingContainer style={{ maxWidth: `${hero.maxWidth}px` }}>
         <HeroHeading dangerouslySetInnerHTML={{ __html: hero.heading }} />
-      </HeadingContainer>
+      </HeadingContainer>*/}
       {/*<SubheadingContainer>
         <Bio author={featuredAuthor} />
         <GridControlsContainer>

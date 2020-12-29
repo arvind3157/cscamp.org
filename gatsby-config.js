@@ -1,9 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: `CsCamp | A Portal for Computer Science Enthusiasts`,
-    name: `CsCamp`,
-    siteUrl: `https://www.cscamp.org`,
-    description: `CsCamp.org is a portal for the geeks to learn coding. It focuses on core computer science topics.`,
+    title: `Arvind Pandey | Personal Blog`,
+    name: `Arvind Pandey`,
+    siteUrl: `https://arvindpandey.in`,
+    description: `This is personal blog by Arvind Pandey. He writes on core computer science and his personal experience in running.`,
     hero: {
       heading: `A portal for Computer Science enthusiasts.`,
       maxWidth: 652,
@@ -24,11 +24,7 @@ module.exports = {
       {
         name: `linkedin`,
         url: `https://www.linkedin.com/in/arvpande/`,
-      },
-      {
-        name: `dribbble`,
-        url: `#`,
-      },
+      }
     ],
   },
   plugins: [
@@ -49,8 +45,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `CsCamp.org`,
-        short_name: `CsCamp`,
+        name: `arvindpandey.in`,
+        short_name: `Arvind`,
         start_url: `/`,
         background_color: `#fff`,
         theme_color: `#fff`,
